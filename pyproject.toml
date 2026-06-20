@@ -1,0 +1,18 @@
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+# Pylint configuration: some pylint versions read pyproject.toml.
+# Keys mirror the traditional pylint sections; keep line length consistent.
+[tool.pylint.FORMAT]
+max-line-length = 88
+
+[tool.pylint.MASTER]
+ignore = [".venv", "build", "dist"]
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = ["C0114", "C0115", "C0116"]

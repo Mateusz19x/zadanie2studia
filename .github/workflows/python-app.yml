@@ -1,0 +1,44 @@
+name: Python application
+
+on:
+  push:
+    branches: [ $default-branch, main, master, develop]
+  pull_request:
+    branches: [ $default-branch, main, master]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Create virtualenv and install dependencies
+        run: bash scripts/create_venv.sh
+
+      - name: Install dev tools into venv
+        run: |
+          if [ -x .venv/bin/python ]; then
+            .venv/bin/python -m pip install --upgrade pip
+            .venv/bin/python -m pip install black isort pylint pytest
+          else
+            python -m pip install --upgrade pip
+            python -m pip install black isort pylint pytest
+          fi
+
+      - name: Format check
+        run: bash scripts/format_check.sh
+
+      - name: Lint
+        run: bash scripts/lint.sh
+
+      - name: Test with pytest
+        run: bash scripts/test.sh
