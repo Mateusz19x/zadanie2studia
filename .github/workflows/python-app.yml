@@ -2,9 +2,15 @@ name: Python application
 
 on:
   push:
-    branches: [ $default-branch, main, master, develop]
+    branches:
+      - main
+      - master
+      - develop
   pull_request:
-    branches: [ $default-branch, main, master]
+    branches:
+      - main
+      - master
+  workflow_dispatch: {}
 
 permissions:
   contents: read
