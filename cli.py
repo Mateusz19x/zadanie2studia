@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Command-line interface for the simple add program."""
+
 import argparse
+
 from app.logic import add
 
 
